@@ -66,7 +66,7 @@ function Index() {
                     <span>{gender}</span>
                 </div>
                 <input type="text" placeholder="Yoshingizni kiriting" value={age} onChange={(e) => setAge(e.target.value)} />
-                <input type="password" placeholder="Parolingizni kiriting" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" required placeholder="Parolingizni kiriting" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button onClick={handleSubmit}>Ma'lumotlarni saqlash</button>
             </aside>
 
