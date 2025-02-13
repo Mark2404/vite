@@ -1,91 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import "./index.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faEnvelope, faPhone, faCake, faVenusMars, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-
 function Index() {
-    const [name, setName] = useState("");
-    const [surname, setSurname] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [age, setAge] = useState("");
-    const [password, setPassword] = useState("");
-    const [gender, setGender] = useState("Erkak");
-
-    const [users, setUsers] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [search, setSearch] = useState('');
+    const [sortAZ, setSortAZ] = useState(false);
 
     useEffect(() => {
-        const savedUsers = JSON.parse(localStorage.getItem("users")) || [];
-        setUsers(savedUsers);
+        fetch('https://dummyjson.com/products')
+            .then(res => res.json())
+            .then(data => setProducts(data.products));
     }, []);
 
-    const handleSubmit = () => {
-        const newUser = { name, surname, phone, email, age, password, gender };
-        const updatedUsers = [...users, newUser];
-        setUsers(updatedUsers);
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
-        setName("");
-        setSurname("");
-        setPhone("");
-        setEmail("");
-        setAge("");
-        setPassword("");
-        setGender("Erkak");
-    };
-
-    const handleDelete = (index) => {
-        const updatedUsers = users.filter((_, i) => i !== index);
-        setUsers(updatedUsers);
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
-    };
-
-    const handleEdit = (index) => {
-        const user = users[index];
-        setName(user.name);
-        setSurname(user.surname);
-        setPhone(user.phone);
-        setEmail(user.email);
-        setAge(user.age);
-        setPassword(user.password);
-        setGender(user.gender);
-
-        handleDelete(index);
-    };
+    const filteredProducts = products
+        .filter(product => product.title.toLowerCase().includes(search.toLowerCase()))
+        .sort((a, b) => sortAZ ? a.title.localeCompare(b.title) : 0);
 
     return (
-        <div className="container">
-            <aside>
-                <h1>Ma'lumot kirgazish</h1>
-                <input type="text" placeholder="Ismingizni kiriting" value={name} onChange={(e) => setName(e.target.value)} />
-                <input type="text" placeholder="Familiyangizni kiriting" value={surname} onChange={(e) => setSurname(e.target.value)} />
-                <input type="text" placeholder="Telefon raqamingizni kiriting" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                <input type="email" placeholder="Emailingizni kiriting" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <div className="gender">
-                    <p>Jinsingizni tanlang</p>
-                    <input type="checkbox" checked={gender === "Erkak"} onChange={() => setGender(gender === "Erkak" ? "Ayol" : "Erkak")} />
-                    <span>{gender}</span>
-                </div>
-                <input type="text" placeholder="Yoshingizni kiriting" value={age} onChange={(e) => setAge(e.target.value)} />
-                <input type="password" required placeholder="Parolingizni kiriting" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button onClick={handleSubmit}>Ma'lumotlarni saqlash</button>
-            </aside>
+        <div className="min-h-screen bg-black text-white p-4">
+            <header className="flex justify-between items-center mb-6">
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                    className="p-2 text-black rounded-lg w-full max-w-md"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <button
+                    onClick={() => setSortAZ(!sortAZ)}
+                    className="ml-4 p-2 bg-red-600 hover:bg-red-800 rounded-lg">
+                    {sortAZ ? 'Sort Z-A' : 'Sort A-Z'}
+                </button>
+            </header>
 
-            <div className="person-data-cards-sec">
-                {users.map((user, index) => (
-                    <div className="person-data-card" key={index}>
-                        <h2><FontAwesomeIcon icon={faUser} /> {user.name} {user.surname}</h2>
-                        <p><FontAwesomeIcon icon={faEnvelope} /> {user.email}</p>
-                        <p><FontAwesomeIcon icon={faPhone} /> {user.phone}</p>
-                        <p><FontAwesomeIcon icon={faCake} /> {user.age} yosh</p>
-                        <p><FontAwesomeIcon icon={faVenusMars} /> {user.gender}</p>
-                        <div className="buttons">
-                            <button className="delete" onClick={() => handleDelete(index)}>
-                                <FontAwesomeIcon icon={faTrash} /> Delete
-                            </button>
-                            <button className="edit" onClick={() => handleEdit(index)}>
-                                <FontAwesomeIcon icon={faEdit} /> Edit
-                            </button>
-                        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filteredProducts.map(product => (
+                    <div key={product.id} className="bg-gray-900 p-4 rounded-lg shadow-lg hover:shadow-red-500">
+                        <img src={product.thumbnail} alt={product.title} className="w-full h-40 object-cover rounded-md mb-3" />
+                        <h2 className="text-lg font-bold text-red-500">{product.title}</h2>
+                        <p className="text-sm">${product.price}</p>
+                        <p className="text-yellow-400">⭐ {product.rating}</p>
                     </div>
                 ))}
             </div>

@@ -1,124 +1,91 @@
 body {
-    background: #000000;
+    background-color: black;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: monospace;
+    padding: 16px;
 }
 
-.container {
+header {
     display: flex;
-}
-
-aside {
-    width: 300px;
-    background: #000000;
-    padding: 20px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    box-shadow: 4px 0 10px rgba(255, 0, 0, 0.6);
-    border-radius: 0 15px 15px 0;
-}
-
-aside h1 {
-    color: #ff0000;
-    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid red;
 }
 
 input {
-    display: block;
+    padding: 8px;
+    color: black;
+    border-radius: 8px;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background: #222;
-    border: none;
-    color: white;
+    max-width: 400px;
     outline: none;
-    border-radius: 5px;
-    transition: 0.3s;
+    border: 2px solid red;
+    transition: border 0.3s;
 }
 
 input:focus {
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-}
-
-.gender {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #ff0000;
+    border-color: #ff4d4d;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background: #ff0000;
-    color: white;
+    margin-left: 16px;
+    padding: 8px 16px;
+    background-color: red;
     border: none;
+    border-radius: 8px;
+    color: white;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 10px red;
 }
 
 button:hover {
-    background: #cc0000;
+    background-color: #b30000;
+    box-shadow: 0 0 20px red;
 }
 
-.person-data-cards-sec {
-    margin-left: 320px;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
 }
 
-.person-data-card {
-    background: #151515;
-    padding: 15px;
-    border-radius: 10px;
-    width: 250px;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-    transition: 0.3s;
+.card {
+    background-color: #1a1a1a;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px red;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid red;
 }
 
-.person-data-card:hover {
+.card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+    box-shadow: 0 0 20px red;
 }
 
-.person-data-card h2 {
-    color: #ff0000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    border-bottom: 2px solid red;
 }
 
-.person-data-card p {
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.card h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    margin-top: 8px;
 }
 
-.buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
+.card p {
+    font-size: 14px;
+    color: #ccc;
 }
 
-.delete {
-    background: #900;
-}
-
-.edit {
-    background: #ff4500;
-}
-
-.delete:hover {
-    background: #700;
-}
-
-.edit:hover {
-    background: #cc3700;
+.card .rating {
+    color: yellow;
 }
