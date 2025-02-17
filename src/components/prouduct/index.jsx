@@ -29,6 +29,7 @@ const index = () => {
     if (error) return <p>{error}</p>;
 
     return (
+
         <div className="container product-full">
             <div className="side-bar-img-box">
                 <div className="side-img">
