@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalWrapper from "../modal-wrapper";
 import {
     faBalanceScale,
     faCreditCard,
@@ -10,20 +11,24 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 
-
 const Header = ({ setSearch }) => {
     const [language, setLanguage] = useState("RU");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        <header className="header ">
+        <header className="header">
             <div className="header__left container">
                 <h1 className="logo">asaxiy</h1>
                 <button className="categories-btn">
                     ☰ <span>Категории</span>
                 </button>
                 <div className="search-bar">
-                    <input type="text" placeholder="Поиск..." onChange={(e) => setSearch(e.target.value)} />
+                    <input
+                        type="text"
+                        placeholder="Поиск..."
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                     <button>Искать</button>
-
                 </div>
             </div>
 
@@ -41,11 +46,11 @@ const Header = ({ setSearch }) => {
                     <FontAwesomeIcon icon={faTruck} className="icon" />
                     <p>доставка</p>
                 </div>
-                <div className="icon ">
+                <div className="icon">
                     <FontAwesomeIcon icon={faShoppingCart} />
                     <p>корзина</p>
                 </div>
-                <div className="icon " >
+                <div className="icon">
                     <FontAwesomeIcon icon={faHeart} />
                     <p>избранное</p>
                 </div>
@@ -55,10 +60,18 @@ const Header = ({ setSearch }) => {
                 >
                     {language === "RU" ? "O'zbekcha" : "Русский"}
                 </button>
-                <div className="icon">
+                <div className="icon" onClick={() => setIsModalOpen((prev) => !prev)}>
                     <FontAwesomeIcon icon={faUser} className="icon" />
                     <p>войти</p>
                 </div>
+
+                {isModalOpen && (
+                    <ModalWrapper
+                        title="Login"
+                        des="Please enter your credentials"
+                        button={<button onClick={() => setIsModalOpen(false)}>Submit</button>}
+                    />
+                )}
             </div>
         </header>
     );
