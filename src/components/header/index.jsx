@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ModalWrapper from "../modal-wrapper";
 import {
     faBalanceScale,
     faCreditCard,
@@ -9,11 +8,25 @@ import {
     faHeart,
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { Button, Modal } from "antd";
+import ModalWrapper from "../modal-wrapper";
 import "./index.scss";
 
 const Header = ({ setSearch }) => {
     const [language, setLanguage] = useState("RU");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    // Функция для открытия модального окна с загрузкой
+    const showLoading = () => {
+        setOpen(true);
+        setLoading(true);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    };
 
     return (
         <header className="header">
@@ -34,16 +47,16 @@ const Header = ({ setSearch }) => {
 
             <div className="header__icons container">
                 <div className="icon">
-                    <FontAwesomeIcon icon={faBalanceScale} className="icon" />
+                    <FontAwesomeIcon icon={faBalanceScale} />
                     <p>сравнение</p>
                 </div>
 
                 <div className="icon">
-                    <FontAwesomeIcon icon={faCreditCard} className="icon" />
+                    <FontAwesomeIcon icon={faCreditCard} />
                     <p>оплата</p>
                 </div>
                 <div className="icon">
-                    <FontAwesomeIcon icon={faTruck} className="icon" />
+                    <FontAwesomeIcon icon={faTruck} />
                     <p>доставка</p>
                 </div>
                 <div className="icon">
@@ -60,18 +73,13 @@ const Header = ({ setSearch }) => {
                 >
                     {language === "RU" ? "O'zbekcha" : "Русский"}
                 </button>
-                <div className="icon" onClick={() => setIsModalOpen((prev) => !prev)}>
-                    <FontAwesomeIcon icon={faUser} className="icon" />
+                <div className="icon" onClick={showLoading}>
+                    <FontAwesomeIcon icon={faUser} />
                     <p>войти</p>
                 </div>
-
-                {isModalOpen && (
-                    <ModalWrapper
-                        title="Login"
-                        des="Please enter your credentials"
-                        button={<button onClick={() => setIsModalOpen(false)}>Submit</button>}
-                    />
-                )}
+                <Modal open={open} onCancel={() => setOpen(false)} footer={null}>
+                    {loading ? "Loading..." : < ModalWrapper setOpen={setOpen} />}
+                </Modal>
             </div>
         </header>
     );

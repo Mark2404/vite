@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Button, Modal } from "antd";
 import {
     faBalanceScale,
     faShoppingCart,
@@ -20,6 +21,9 @@ const ProductList = ({ search }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sortBy, setSortBy] = useState("");
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
         axios
@@ -51,16 +55,22 @@ const ProductList = ({ search }) => {
     if (loading) return <CircularProgress className="container" size={50} />;
     if (error) return <p>{error}</p>;
 
+    const openModal = (product) => {
+        setSelectedProduct(product);
+        setModalVisible(true);
+    };
+    const closeModal = () => {
+        setModalVisible(false);
+        setSelectedProduct(null);
+    };
+
     return (
         <>
             <Swiper
                 slidesPerView={5}
                 spaceBetween={30}
                 loop={true}
-                navigation={{
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                }}
+                navigation={true}
                 autoplay={{ delay: 1500, disableOnInteraction: false }}
                 modules={[Pagination, Navigation, Autoplay]}
                 className="mySwiper"
@@ -70,56 +80,51 @@ const ProductList = ({ search }) => {
                     borderRadius: "10px",
                 }}
             >
-                {loading
-                    ? [...Array(6)].map((_, index) => (
-                        <SwiperSlide key={index}>Loading...</SwiperSlide>
-                    ))
-                    : filteredProducts.map((product) => (
-                        <SwiperSlide key={product.id}>
-                            <Link to={`/products/${product.id}`} className="product-link">
-                                <div className="product-list__image">
-                                    <img
-                                        src={product.thumbnail}
-                                        alt={product.title}
-                                        width="100%"
+                {filteredProducts.map((product) => (
+                    <SwiperSlide key={product.id}>
+                        <div className="product-card" onClick={() => openModal(product)}>
+                            <div className="product-list__image">
+                                <img
+                                    src={product.thumbnail}
+                                    alt={product.title}
+                                    width="100%"
+                                />
+                                <div>
+                                    <FontAwesomeIcon
+                                        icon={faBalanceScale}
+                                        className="icon product-icon"
                                     />
-                                    <div>
-                                        <FontAwesomeIcon
-                                            icon={faBalanceScale}
-                                            className="icon product-icon"
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faHeart}
-                                            className="icon product-icon"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="product-list__info">
-                                    <h2 className="product_name">{product.title}</h2>
-                                </div>
-                                <div className="fedback">
-                                    <Rating
-                                        name="read-only"
-                                        className="rating"
-                                        value={product.rating}
-                                        readOnly
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className="icon product-icon"
                                     />
-                                    <p>{Math.floor(Math.random() * 10) + 1} отзывов</p>
                                 </div>
-                                <div className="product-list__price">
-                                    <p className="old-price">
-                                        {((product.price * 13000) * 1.1).toLocaleString()} so'm
-                                    </p>
-                                    <p>{(product.price * 13000).toLocaleString()} so'm</p>
-                                </div>
-                                <div className="credits">
-                                    {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
-                                </div>
-                            </Link>
-                        </SwiperSlide>
-                    ))}
+                            </div>
+                            <div className="product-list__info">
+                                <h2 className="product_name">{product.title}</h2>
+                            </div>
+                            <div className="fedback">
+                                <Rating
+                                    name="read-only"
+                                    className="rating"
+                                    value={product.rating}
+                                    readOnly
+                                />
+                                <p>{Math.floor(Math.random() * 10) + 1} отзывов</p>
+                            </div>
+                            <div className="product-list__price">
+                                <p className="old-price">
+                                    {((product.price * 13000) * 1.1).toLocaleString()} so'm
+                                </p>
+                                <p>{(product.price * 13000).toLocaleString()} so'm</p>
+                            </div>
+                            <div className="credits">
+                                {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))}
             </Swiper>
-
             <div className="container">
                 <h1 className="product-list__title">Список товаров</h1>
 
@@ -134,63 +139,70 @@ const ProductList = ({ search }) => {
                         </select>
                     </label>
                 </div>
-                {filteredProducts.length === 0 ? (
-                    <p>Ничего не найдено</p>
-                ) : (
-                    <ul className="product-list">
-                        {filteredProducts.map((product) => (
-                            <li key={product.id}>
-                                <Link to={`/products/${product.id}`} className="product-link">
-                                    <div className="product-list__image">
-                                        <img
-                                            src={product.thumbnail}
-                                            alt={product.title}
-                                            width="100"
-                                        />
-                                        <div>
-                                            <FontAwesomeIcon
-                                                icon={faBalanceScale}
-                                                className="icon product-icon"
-                                            />
-                                            <FontAwesomeIcon
-                                                icon={faHeart}
-                                                className="icon product-icon"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="product-list__info">
-                                        <h2 className="product_name">{product.title}</h2>
-                                    </div>
-                                    <div className="fedback">
-                                        <Rating
-                                            name="read-only"
-                                            className="rating"
-                                            value={product.rating}
-                                            readOnly
-                                        />
-                                        <p>{Math.floor(Math.random() * 10) + 1} отзывов</p>
-                                    </div>
-                                    <div className="product-list__price">
-                                        <p className="old-price">
-                                            {((product.price * 13000) * 1.1).toLocaleString()} so'm
-                                        </p>
-                                        <p>{(product.price * 13000).toLocaleString()} so'm</p>
-                                    </div>
-                                    <div className="credits">
-                                        {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
-                                    </div>
-                                </Link>
-                                <div className="product-list__btn">
-                                    <button className="buy">Купить</button>
-                                    <button className="cart">
-                                        <FontAwesomeIcon icon={faShoppingCart} />
-                                    </button>
+
+                <ul className="product-list">
+                    {filteredProducts.map((product) => (
+                        <li key={product.id} onClick={() => openModal(product)}>
+                            <div className="product-list__image">
+                                <img src={product.thumbnail} alt={product.title} width="100" />
+                                <div>
+                                    <FontAwesomeIcon
+                                        icon={faBalanceScale}
+                                        className="icon product-icon"
+                                    />
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className="icon product-icon"
+                                    />
                                 </div>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                            </div>
+                            <div className="product-list__info">
+                                <h2 className="product_name">{product.title}</h2>
+                            </div>
+                            <div className="fedback">
+                                <Rating
+                                    name="read-only"
+                                    className="rating"
+                                    value={product.rating}
+                                    readOnly
+                                />
+                                <p>{Math.floor(Math.random() * 10) + 1} отзывов</p>
+                            </div>
+                            <div className="product-list__price">
+                                <p className="old-price">
+                                    {((product.price * 13000) * 1.1).toLocaleString()} so'm
+                                </p>
+                                <p>{(product.price * 13000).toLocaleString()} so'm</p>
+                            </div>
+                            <div className="credits">
+                                {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
+
+
+            <Modal
+                title={selectedProduct?.title}
+                open={modalVisible}
+                onCancel={closeModal}
+                footer={[
+                    <Button key="back" onClick={closeModal}>
+                        Закрыть
+                    </Button>,
+                    <Link to={`/products/${selectedProduct?.id}`} key="details">
+                        <Button type="primary">Подробнее</Button>
+                    </Link>,
+                ]}
+            >
+                <img
+                    src={selectedProduct?.thumbnail}
+                    alt={selectedProduct?.title}
+                    style={{ width: "100%", marginBottom: "10px" }}
+                />
+                <p>{selectedProduct?.description}</p>
+            </Modal>
         </>
     );
 };
