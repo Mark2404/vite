@@ -4,8 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 
+import { StateProvider } from "./context"
+
+
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+    <StateProvider>
+      <App />
+
+    </StateProvider>
+
+
+  </BrowserRouter>
+  ,
 )

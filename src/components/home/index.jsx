@@ -9,22 +9,20 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { Button, Modal } from "antd";
-import {
-    faBalanceScale,
-    faShoppingCart,
-    faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBalanceScale, faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
+import { useStateValue } from "../../context/index.jsx";
+
 
 const ProductList = ({ search }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sortBy, setSortBy] = useState("");
-
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
+    const { wishlist, setWishlist } = useStateValue();
     useEffect(() => {
         axios
             .get("https://dummyjson.com/products?limit=100")
@@ -37,6 +35,16 @@ const ProductList = ({ search }) => {
                 setLoading(false);
             });
     }, []);
+    const toggleFavorite = (product) => {
+        setWishlist((prev) => {
+            const updatedWishlist = prev.some((item) => item.id === product.id)
+                ? prev.filter((item) => item.id !== product.id)
+                : [...prev, product];
+
+            sessionStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+            return updatedWishlist;
+        });
+    };
 
     let filteredProducts = search
         ? products.filter((product) =>
@@ -63,6 +71,7 @@ const ProductList = ({ search }) => {
         setModalVisible(false);
         setSelectedProduct(null);
     };
+
 
     return (
         <>
@@ -127,7 +136,6 @@ const ProductList = ({ search }) => {
             </Swiper>
             <div className="container">
                 <h1 className="product-list__title">Список товаров</h1>
-
                 <div className="filters">
                     <label className="filter-label">
                         <p>Filtir</p>
@@ -139,7 +147,6 @@ const ProductList = ({ search }) => {
                         </select>
                     </label>
                 </div>
-
                 <ul className="product-list">
                     {filteredProducts.map((product) => (
                         <li key={product.id} onClick={() => openModal(product)}>
@@ -153,7 +160,12 @@ const ProductList = ({ search }) => {
                                     <FontAwesomeIcon
                                         icon={faHeart}
                                         className="icon product-icon"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFavorite(product);
+                                        }}
                                     />
+
                                 </div>
                             </div>
                             <div className="product-list__info">
@@ -181,8 +193,6 @@ const ProductList = ({ search }) => {
                     ))}
                 </ul>
             </div>
-
-
             <Modal
                 title={selectedProduct?.title}
                 open={modalVisible}

@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { memo, createContext } from "react";
+import { Link } from "react-router-dom";
+
+
+import { useStateValue } from "../../context";
 import {
     faBalanceScale,
     faCreditCard,
@@ -11,14 +16,13 @@ import {
 import { Button, Modal } from "antd";
 import ModalWrapper from "../modal-wrapper";
 import "./index.scss";
-
+export const TextContext = createContext();
 const Header = ({ setSearch }) => {
+    const { wishlist } = useStateValue();
     const [language, setLanguage] = useState("RU");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
-
-    // Функция для открытия модального окна с загрузкой
     const showLoading = () => {
         setOpen(true);
         setLoading(true);
@@ -64,8 +68,13 @@ const Header = ({ setSearch }) => {
                     <p>корзина</p>
                 </div>
                 <div className="icon">
-                    <FontAwesomeIcon icon={faHeart} />
-                    <p>избранное</p>
+
+                    <Link to="/favorites">
+                        <FontAwesomeIcon icon={faHeart} />
+                        <p>избранное</p>
+                        <p>{wishlist.length}</p>
+                    </Link>
+
                 </div>
                 <button
                     className="language-btn"
@@ -85,4 +94,4 @@ const Header = ({ setSearch }) => {
     );
 };
 
-export default Header;
+export default memo(Header);
