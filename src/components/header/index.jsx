@@ -70,9 +70,13 @@ const Header = ({ setSearch }) => {
                 <div className="icon">
 
                     <Link to="/favorites">
-                        <FontAwesomeIcon icon={faHeart} />
-                        <p>избранное</p>
-                        <p>{wishlist.length}</p>
+
+                        <div className="wishlist-count icon">
+                            <FontAwesomeIcon icon={faHeart} />
+                            <p>избранное</p>
+                            <p className="count">{wishlist.length}</p>
+                        </div>
+
                     </Link>
 
                 </div>
