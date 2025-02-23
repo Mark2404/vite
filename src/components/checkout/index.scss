@@ -1,0 +1,201 @@
+form {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 50px;
+    -webkit-box-shadow: 0px 10px 30px rgba(209, 213, 223, .5);
+    box-shadow: 0px 10px 30px rgba(209, 213, 223, .5);
+}
+
+.checkout-container {
+    display: flex;
+    gap: 20px;
+}
+
+.checkout-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    margin-bottom: 20px;
+    flex-direction: column;
+
+    .custom-select {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        color: #495057;
+        outline: 0;
+        transition: border-colorease-in-out .15s, box-shadowease-in-out .15s;
+    }
+
+    input {
+        display: block;
+        width: 452px;
+        height: calc(1.5em + 0.75rem + 4px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #5f5f5f;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 2px solid #c2c6d1;
+        border-radius: 8px;
+        transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
+    }
+}
+
+
+
+.delevery {
+    margin-top: -16px;
+}
+
+.delevery-box {
+    .delivery-options {
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        gap: 10px;
+        margin-top: -15px;
+        margin-bottom: 40px;
+
+    }
+
+
+    div {
+        padding: 24px;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #0f172a;
+        line-height: 24px;
+        cursor: pointer;
+        background-color: #f2f2f7;
+        height: 200px;
+
+
+        &.active {
+            border: 1px solid #006bff;
+            background-color: #fff;
+
+        }
+
+
+        h5 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #334155;
+            margin-top: 20px;
+            line-height: 20px;
+        }
+    }
+}
+
+.comment {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 4px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #5f5f5f;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 2px solid #c2c6d1;
+    border-radius: 8px;
+    transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
+    height: auto;
+}
+
+.payment-options {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    flex-direction: column;
+    background-color: #f2f2f7;
+
+    .active {
+        border: 1px solid #006bff;
+        background-color: #fff;
+    }
+
+    button {
+        padding: 24px;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #0f172a;
+        line-height: 24px;
+        cursor: pointer;
+
+        margin-top: 10px;
+        width: 300px;
+    }
+}
+
+.agreement {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+
+    p {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 0;
+
+        span {
+            color: #006bff;
+        }
+    }
+}
+
+.back-box {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    justify-self: start;
+    gap: 10px;
+
+    p {
+        font-size: 16px;
+
+        font-weight: 500;
+        color: #fe7300;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    button {
+
+
+        position: relative;
+        border: none;
+        z-index: 1;
+        font-size: 14px;
+        padding: 14px 20px;
+        color: #fff;
+        border-radius: 10px;
+    }
+}

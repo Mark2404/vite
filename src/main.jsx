@@ -6,15 +6,19 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { StateProvider } from "./context"
 
+import { CartProvider } from "./context/CartContext.jsx";
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+  <StrictMode>
     <StateProvider>
-      <App />
+      <CartProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CartProvider>
+
 
     </StateProvider>
+  </StrictMode>
 
-
-  </BrowserRouter>
-  ,
 )

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 
 import { useStateValue } from "../../context";
+import { useCart } from "../../context/CartContext.jsx";
 import {
     faBalanceScale,
     faCreditCard,
@@ -19,6 +20,7 @@ import "./index.scss";
 export const TextContext = createContext();
 const Header = ({ setSearch }) => {
     const { wishlist } = useStateValue();
+    const { cart } = useCart();
     const [language, setLanguage] = useState("RU");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [open, setOpen] = useState(false);
@@ -35,7 +37,10 @@ const Header = ({ setSearch }) => {
     return (
         <header className="header">
             <div className="header__left container">
-                <h1 className="logo">asaxiy</h1>
+                <Link to="/">
+                    <img src="../assets/asaxiy-logo.svg" alt="" />
+                </Link>
+
                 <button className="categories-btn">
                     ☰ <span>Категории</span>
                 </button>
@@ -63,9 +68,15 @@ const Header = ({ setSearch }) => {
                     <FontAwesomeIcon icon={faTruck} />
                     <p>доставка</p>
                 </div>
-                <div className="icon">
-                    <FontAwesomeIcon icon={faShoppingCart} />
-                    <p>корзина</p>
+                <div className="icon wishlist-count">
+                    <Link to="/cart">
+
+                        <FontAwesomeIcon icon={faShoppingCart} />
+                        <p>корзина</p>
+                        <p className="count">{cart.length} </p>
+
+                    </Link>
+
                 </div>
                 <div className="icon">
 

@@ -13,7 +13,7 @@ import { faBalanceScale, faShoppingCart, faHeart } from "@fortawesome/free-solid
 import "./index.scss";
 import { useStateValue } from "../../context/index.jsx";
 
-
+import { useCart } from "../../context/CartContext.jsx";
 const ProductList = ({ search }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ const ProductList = ({ search }) => {
     const [sortBy, setSortBy] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const { addToCart } = useCart();
 
     const { wishlist, setWishlist } = useStateValue();
     useEffect(() => {
@@ -45,6 +46,7 @@ const ProductList = ({ search }) => {
             return updatedWishlist;
         });
     };
+
 
     let filteredProducts = search
         ? products.filter((product) =>
@@ -130,6 +132,12 @@ const ProductList = ({ search }) => {
                             <div className="credits">
                                 {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
                             </div>
+                            <div className="product-list__btn">
+                                <button className="buy" onClick={() => addToCart(sampleProduct)}>Купить </button>
+                                <button className="cart">
+                                    <FontAwesomeIcon icon={faShoppingCart} />
+                                </button>
+                            </div>
                         </div>
                     </SwiperSlide>
                 ))}
@@ -163,6 +171,7 @@ const ProductList = ({ search }) => {
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             toggleFavorite(product);
+                                            alert("Tovar favoritega qoshildi");
                                         }}
                                     />
 
@@ -189,10 +198,20 @@ const ProductList = ({ search }) => {
                             <div className="credits">
                                 {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
                             </div>
+                            <div className="product-list__btn">
+                                <button className="buy" onClick={(e) => { e.stopPropagation(); addToCart(product); alert("Tovar qo'shildi"); }}>
+                                    Купить
+                                </button>
+                                <Link to="/cart">
+                                    <button className="cart" >
+                                        <FontAwesomeIcon icon={faShoppingCart} />
+                                    </button>
+                                </Link>
+                            </div>
                         </li>
                     ))}
                 </ul>
-            </div>
+            </div >
             <Modal
                 title={selectedProduct?.title}
                 open={modalVisible}
