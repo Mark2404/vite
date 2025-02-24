@@ -7,6 +7,9 @@ import Prouduct from "./components/prouduct";
 import Favorites from "./components/like/Favorites";
 import Cart from "./components/cart";
 import Checkout from "./components/checkout";
+import React, { Component } from "react";
+import { createRoot } from 'react-dom/client';
+import "./utils/i18n";
 function App() {
     const [search, setSearch] = useState("");
 

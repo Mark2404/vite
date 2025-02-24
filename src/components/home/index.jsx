@@ -12,9 +12,11 @@ import { Button, Modal } from "antd";
 import { faBalanceScale, faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 import { useStateValue } from "../../context/index.jsx";
+import { useTranslation } from "react-i18next";
 
 import { useCart } from "../../context/CartContext.jsx";
 const ProductList = ({ search }) => {
+    const { t } = useTranslation();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -121,19 +123,19 @@ const ProductList = ({ search }) => {
                                     value={product.rating}
                                     readOnly
                                 />
-                                <p>{Math.floor(Math.random() * 10) + 1} отзывов</p>
+                                <p>{Math.floor(Math.random() * 10) + 1} {t("feedback")}</p>
                             </div>
                             <div className="product-list__price">
                                 <p className="old-price">
-                                    {((product.price * 13000) * 1.1).toLocaleString()} so'm
+                                    {((product.price * 13000) * 1.1).toLocaleString()} {t("currency")}
                                 </p>
-                                <p>{(product.price * 13000).toLocaleString()} so'm</p>
+                                <p>{(product.price * 13000).toLocaleString()} {t("currency")}</p>
                             </div>
                             <div className="credits">
-                                {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
+                                {(((product.price / 12) * 13000).toFixed(0))} {t("currency")} x 12 {t("months")}
                             </div>
                             <div className="product-list__btn">
-                                <button className="buy" onClick={() => addToCart(sampleProduct)}>Купить </button>
+                                <button className="buy" onClick={() => addToCart(sampleProduct)}> {t("buy")} </button>
                                 <button className="cart">
                                     <FontAwesomeIcon icon={faShoppingCart} />
                                 </button>
@@ -143,15 +145,15 @@ const ProductList = ({ search }) => {
                 ))}
             </Swiper>
             <div className="container">
-                <h1 className="product-list__title">Список товаров</h1>
+                <h1 className="product-list__title"> {t("productsList")}</h1>
                 <div className="filters">
                     <label className="filter-label">
-                        <p>Filtir</p>
+                        <p>{t("sortBy")}</p>
                         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                            <option value="">Hammmasi</option>
-                            <option value="priceAsc">narx pasi</option>
-                            <option value="priceDesc">narx kottasi</option>
-                            <option value="alphabetical">alfavit boyicha</option>
+                            <option value="">{t("all")}</option>
+                            <option value="priceAsc"> {t("Lowprice")}</option>
+                            <option value="priceDesc">{t("Highprice")}</option>
+                            <option value="alphabetical">{t("Alphabetical")}</option>
                         </select>
                     </label>
                 </div>
@@ -171,7 +173,7 @@ const ProductList = ({ search }) => {
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             toggleFavorite(product);
-                                            alert("Tovar favoritega qoshildi");
+
                                         }}
                                     />
 
@@ -187,20 +189,20 @@ const ProductList = ({ search }) => {
                                     value={product.rating}
                                     readOnly
                                 />
-                                <p>{Math.floor(Math.random() * 10) + 1} отзывов</p>
+                                <p>{Math.floor(Math.random() * 10) + 1} {t("feedback")}</p>
                             </div>
                             <div className="product-list__price">
                                 <p className="old-price">
-                                    {((product.price * 13000) * 1.1).toLocaleString()} so'm
+                                    {((product.price * 13000) * 1.1).toLocaleString()} {t("currency")}
                                 </p>
-                                <p>{(product.price * 13000).toLocaleString()} so'm</p>
+                                <p>{(product.price * 13000).toLocaleString()} {t("currency")}</p>
                             </div>
                             <div className="credits">
-                                {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
+                                {(((product.price / 12) * 13000).toFixed(0))} {t("currency")} x 12 {t("months")}
                             </div>
                             <div className="product-list__btn">
                                 <button className="buy" >
-                                    Купить
+                                    {t("buy")}
                                 </button>
 
                                 <button className="cart" >
@@ -218,10 +220,10 @@ const ProductList = ({ search }) => {
                 onCancel={closeModal}
                 footer={[
                     <Button key="back" onClick={closeModal}>
-                        Закрыть
+                        {t("close")}
                     </Button>,
                     <Link to={`/products/${selectedProduct?.id}`} key="details">
-                        <Button type="primary">Подробнее</Button>
+                        <Button type="primary">{t("details")}</Button>
                     </Link>,
                 ]}
             >

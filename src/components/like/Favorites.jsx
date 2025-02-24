@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useStateValue } from "../../context";
+import { useTranslation } from "react-i18next";
 
 const Favorites = () => {
     const { wishlist, setWishlist } = useStateValue();
+    const { t } = useTranslation();
 
     const toggleFavorite = (product) => {
         setWishlist((prev) => {
@@ -18,9 +20,9 @@ const Favorites = () => {
 
     return (
         <div className="container">
-            <h1>Избранные товары</h1>
+            <h1>{t("favProduct")}</h1>
             {wishlist.length === 0 ? (
-                <p>Вы пока не добавили товары в избранное.</p>
+                <p>{t("favEmpty")}</p>
             ) : (
                 <ul className="product-list">
                     {wishlist.map((product) => (
@@ -39,7 +41,7 @@ const Favorites = () => {
                                 <h2 className="product_name">{product.title}</h2>
                             </div>
                             <div className="product-list__price">
-                                <p>{(product.price * 13000).toLocaleString()} so'm</p>
+                                <p>{(product.price * 13000).toLocaleString()} {t("currency")}</p>
                             </div>
                         </li>
                     ))}

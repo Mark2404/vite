@@ -2,28 +2,30 @@ import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope, faMapMarkerAlt, faStore, faTruck, faBoxOpen, faF } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram, faTelegram, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from "react-i18next";
 
 const index = () => {
+    const { t } = useTranslation();
     return (
         <footer className="footer">
             <div className="container">
                 <div className="footer__content">
                     <div className="footer__column">
-                        <h3>Информация</h3>
+                        <h3>{t("information")}</h3>
                         <ul>
-                            <li><a href="#">Часто задаваемые вопросы</a></li>
-                            <li><a href="#">Новости</a></li>
-                            <li><a href="#">Блог</a></li>
-                            <li><a href="#">Наши бренды</a></li>
-                            <li><a href="#">Карьера в Asaxiy</a></li>
-                            <li><a href="#">Оферта для рассрочки</a></li>
-                            <li><a href="#">Публичная оферта</a></li>
-                            <li><a href="#">О нас</a></li>
-                            <li><a href="#">Карта сайта</a></li>
+                            <li><a href="#">{t("faq")}</a></li>
+                            <li><a href="#">{t("news")}</a></li>
+                            <li><a href="#">{t("blog")}</a></li>
+                            <li><a href="#">{t("ourBrands")}</a></li>
+                            <li><a href="#">{t("career")}</a></li>
+                            <li><a href="#">{t("offer")}</a></li>
+                            <li><a href="#">{t("publicOffer")}</a></li>
+                            <li><a href="#">{t("aboutUs")}</a></li>
+                            <li><a href="#">{t("sitemap")}</a></li>
                         </ul>
                     </div>
                     <div className="footer__column">
-                        <h3>Для связи</h3>
+                        <h3>{t("contactUs")}</h3>
                         <ul className="with-icons">
                             <div>
                                 <FontAwesomeIcon icon={faPhone} /> <li> +998 71 200 01 05</li>
@@ -32,30 +34,30 @@ const index = () => {
                             <div>
                                 <FontAwesomeIcon icon={faEnvelope} />    <li>info@asaxiy.uz</li>
                             </div>
-                            <div><FontAwesomeIcon icon={faTelegram} /><li> Telegram bot</li></div>
-                            <div> <FontAwesomeIcon icon={faMapMarkerAlt} />  <li>улица Чиланзар 45/2, Ташкент</li></div>
+                            <div><FontAwesomeIcon icon={faTelegram} /><li> {t("telegramBot")}</li></div>
+                            <div> <FontAwesomeIcon icon={faMapMarkerAlt} />  <li>{t("address")}</li></div>
 
                         </ul>
 
 
-                        <h3>Программы лояльности</h3>
+                        <h3>{t("loyaltyPrograms")}</h3>
                         <ul>
-                            <li>Статус «El-yurt ishonchi»</li>
-                            <li>«Asaxiy Plus»</li>
-                            <li>Оферта «Asaxiy Plus»</li>
+                            <li>{t("elYurtStatus")}</li>
+                            <li>{t("asaxiyPlus")}</li>
+                            <li>{t("asaxiyPlusOffer")}</li>
                         </ul>
                     </div>
                     <div className="footer__column">
-                        <h3>Доставка и магазины</h3>
+                        <h3>{t("deliveryAndStores")}</h3>
                         <ul className="with-icons">
                             <div className="map">
-                                <FontAwesomeIcon icon={faStore} />  <li>Наши магазины</li>
+                                <FontAwesomeIcon icon={faStore} />  <li>{t("ourStores")}</li>
                             </div >
                             <div className="map">
-                                <FontAwesomeIcon icon={faBoxOpen} />  <li>Пункты выдачи</li>
+                                <FontAwesomeIcon icon={faBoxOpen} />  <li>{t("pickupPoints")}</li>
                             </div>
                             <div className="map">
-                                <FontAwesomeIcon icon={faTruck} />  <li> Доставка</li>
+                                <FontAwesomeIcon icon={faTruck} />  <li> {t("delivery")}</li>
                             </div>
 
 
@@ -63,7 +65,7 @@ const index = () => {
                         </ul>
                     </div>
                     <div className="footer__column">
-                        <h3>Виды оплаты</h3>
+                        <h3>{t("paymentMethods")}</h3>
                         <ul className="debit-cards">
                             <div>
                                 <li>Uzum</li>
@@ -80,7 +82,7 @@ const index = () => {
 
 
                         </ul>
-                        <h3>Мы в соц. сетях</h3>
+                        <h3>{t("socialMedia")}</h3>
                         <div className="social-icons">
 
                             <FontAwesomeIcon className="footer-icon" icon={faInstagram} />
@@ -95,7 +97,7 @@ const index = () => {
                     </div>
                 </div>
                 <div className="footer__bottom">
-                    <p>2015 - 2025 Интернет-магазин asaxiy.uz: Бытовая техника и др. Доставка товаров осуществляется во все регионы. Все права защищены.</p>
+                    <p>{t("footerP")}</p>
                 </div>
             </div>
         </footer>

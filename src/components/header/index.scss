@@ -64,6 +64,12 @@
     align-items: center;
     gap: 24px;
     color: #6b7280;
+
+    a {
+        text-align: center;
+        text-decoration: none;
+        color: #6b7280;
+    }
 }
 
 .icon {
@@ -92,12 +98,16 @@
     padding: 8px 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background: white;
+    background: #2563eb;
     cursor: pointer;
     font-weight: 500;
+    color: #fff;
+    width: 95px;
 
     &:hover {
         background: #f3f4f6;
+        color: #2563eb;
+        transition: all 0.3s ease-in-out;
     }
 }
 

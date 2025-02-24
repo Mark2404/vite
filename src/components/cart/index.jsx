@@ -7,9 +7,11 @@ import { useStateValue } from "../../context/index.jsx";
 import { Link } from "react-router-dom";
 
 
-
+import { useTranslation } from "react-i18next";
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity } = useCart();
+    const { t } = useTranslation();
+
     const { wishlist, setWishlist } = useStateValue();
     const totalPrice = cart.reduce((acc, item) => acc + (item.price * 13000 * item.quantity), 0);
     const toggleFavorite = (item) => {
@@ -25,10 +27,10 @@ const Cart = () => {
     return (
 
         <div className="cart-container">
-            <h2>🛒 Корзина</h2>
+            <h2>🛒 {t("cart")}</h2>
 
             {cart.length === 0 ? (
-                <p>Ваша корзина пуста.</p>
+                <p>{t("cartEmpty")}</p>
             ) : (
                 <div className="cart-content">
                     <div className="cart-items">
@@ -58,9 +60,9 @@ const Cart = () => {
 
                                 <div className="cart-item-price">
                                     <p className="old-price">
-                                        {((item.price * 13000) * 1.1).toLocaleString()} so'm
+                                        {((item.price * 13000) * 1.1).toLocaleString()} {t("currency")}
                                     </p>
-                                    <p>{(item.price * 13000).toLocaleString()} so'm</p>
+                                    <p>{(item.price * 13000).toLocaleString()} {t("currency")}</p>
                                 </div>
 
                                 <div className="cart-actions">
@@ -83,11 +85,11 @@ const Cart = () => {
                     <div className="cart-summary">
                         <div>
                             <p>В корзине {cart.length} товарa</p>
-                            <b>  <span>Общая сумма:</span> {totalPrice.toLocaleString()} so'm</b>
+                            <b>  <span>{t("total")}</span> {totalPrice.toLocaleString()} {t("currency")}</b>
                         </div>
                         <div>
                             <Link to="/checkout">
-                                <button className="checkout-btn">ОФОРМИТЬ</button>
+                                <button className="checkout-btn">{t("checkout")}</button>
                             </Link>
 
                         </div>
