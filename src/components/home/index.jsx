@@ -199,14 +199,14 @@ const ProductList = ({ search }) => {
                                 {(((product.price / 12) * 13000).toFixed(0))} so'm x 12 oy
                             </div>
                             <div className="product-list__btn">
-                                <button className="buy" onClick={(e) => { e.stopPropagation(); addToCart(product); alert("Tovar qo'shildi"); }}>
+                                <button className="buy" >
                                     Купить
                                 </button>
-                                <Link to="/cart">
-                                    <button className="cart" >
-                                        <FontAwesomeIcon icon={faShoppingCart} />
-                                    </button>
-                                </Link>
+
+                                <button className="cart" >
+                                    <FontAwesomeIcon icon={faShoppingCart} onClick={(e) => { e.stopPropagation(); addToCart(product); alert("Tovar qo'shildi"); }} />
+                                </button>
+
                             </div>
                         </li>
                     ))}
